@@ -272,9 +272,7 @@ public class NameClient : ICommand
     public string Command => "Name";
     public string[] Aliases => ["name", "customname"];
     public string Description => "Gives you a custom name for RP purposes : Name (New Name)";
-
-    private List<string> NameBlacklist { get; } = Plugin.Singleton.Config.BlackList;
-
+    
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
         if (!Name.IsEnabled)
@@ -291,7 +289,7 @@ public class NameClient : ICommand
             return true;
         }
         foreach (var word in arguments)
-        foreach (var _ in NameBlacklist.Where(target => word.Equals(target, StringComparison.OrdinalIgnoreCase))) player.Ban(1577000000, "Automated ban for Rule 3. Appeal on the discord if you believe this was false.");
+        foreach (var _ in Plugin.Singleton.Config.BlackList.Where(target => word.Equals(target, StringComparison.OrdinalIgnoreCase))) player.Ban(1577000000, "Automated ban. Appeal on the discord if you believe this was false.");
 
         player.DisplayNickname = string.Join(" ", arguments);
 

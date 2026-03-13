@@ -51,7 +51,7 @@ public abstract class Lobby
 
         if(Scp2536Controller.Singleton)
             UObject.Destroy(Scp2536Controller.Singleton);
-        Scp559Cake.Spawnpoints.Clear();
+        Scp559Cake.PossibleSpawnpoints.Clear();
         IsRoleplay = false;
         IsLobby = false;
         HasRoleplayStarted = false;

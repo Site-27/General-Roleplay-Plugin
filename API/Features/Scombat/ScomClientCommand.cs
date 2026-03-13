@@ -16,9 +16,7 @@ public class ScomClientCommand : ICommand
     public string[] Aliases => ["signalcommunicate"];
 
     public string Description => "Allows you to use your PDA (RP) to message others";
-
-    private List<string> BlackList { get; } = Plugin.Singleton.Config.BlackList;
-
+    
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
         var player = ExPlayer.Get((CommandSender)sender);
@@ -82,9 +80,9 @@ public class ScomClientCommand : ICommand
         if (arguments.Count < 2)
             return false;
 
-        if (arguments.Skip(1).Any(arg => BlackList.Contains(arg)))
+        if (arguments.Skip(1).Any(arg => Plugin.Singleton.Config.BlackList.Contains(arg)))
         {
-            player.Ban(1577000000, "Automated ban for Rule 3. Appeal on the discord if you believe this was false.\nhttps://discord.gg/site12");
+            player.Ban(1577000000, "Automated ban for Rule 3. Appeal on the discord if you believe this was false.\nhttps://discord.gg/site27");
             response = "Really?";
             return false;
         }
