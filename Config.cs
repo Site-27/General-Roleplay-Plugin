@@ -42,4 +42,7 @@ public class Config : IConfig
 
     [Description("Discord Webhook link for Department Logs")]
     public string URL { get; set; } = "Example URL";
+
+    [Description("Leave empty to allow all IPs on the webserver.")]
+    public List<string> AllowedIPs { get; set; } = [];
 }
