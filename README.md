@@ -1,4 +1,4 @@
-# General Roleplay Plugin (GRPG)
+# General Roleplay Plugin (GRPP)
 
 ## Quick-Build guide: 
 ---
