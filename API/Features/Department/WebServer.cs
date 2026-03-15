@@ -41,6 +41,8 @@ public class WebServer
                 File.Move(Path.Combine(oldfolder, "Users.json"), Path.Combine(Paths.Configs, "Site12", "Users.json"));
             if (!Directory.EnumerateFiles(oldfolder).Any())
                 Directory.Delete(oldfolder);
+            else
+                Log.Warn("Warning: You still have an old folder named 'Site12' in 'EXILED/Plugins/'. The new config folder for the webserver is stored in 'EXILED/Configs/Site12'.");
         }
         
         if (!File.Exists(Path.Combine(Paths.Configs, "Site12", "Users.json")))
