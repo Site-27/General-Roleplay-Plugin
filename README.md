@@ -17,6 +17,12 @@ Requirements:
 
 It is HEAVILY recommended to use a set seed, but weirdly not a requirement.
 
+# Permissions:
+- grpp.lobby (Enable/Disable/Reuse lobby)
+- grpp.restrictpermissions (Permits staff to restrict permissions of other hosters during a roleplay. A full list of what is restricted will be provided as soon as this feature is complete.)
+- grpp.bypassrestrict (Bypass set restrictions.)
+- grpp.taser (Enables modification to the tasers, for now this only permits modification of the chances for the taser to give cardiac arrest, which by default is 1/100.)
+
 # NOTES:
 - We are attempting to use Log.Debug("") as much as possible now - so if you need assistance, feel free to enable the EXILED debug mode beforehand and our plugin will log as much as we've set up.
 
