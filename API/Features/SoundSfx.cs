@@ -1,5 +1,6 @@
 namespace GRPP.API.Features;
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Attributes;
@@ -19,20 +20,26 @@ public class SoundSfx
     [OnPluginEnabled]
     public static void InitEvents()
     {
+        if (!Directory.Exists(Path.Combine(Paths.Configs, "GRPP")))
+            Directory.CreateDirectory(Path.Combine(Paths.Configs, "GRPP"));
         if (!Directory.Exists(Path.Combine(Paths.Configs, "GRPP", "audio")))
             Directory.CreateDirectory(Path.Combine(Paths.Configs, "GRPP", "audio"));
         if (!Directory.Exists(Path.Combine(Paths.Configs, "GRPP", "audio", "PluginSFX")))
             Directory.CreateDirectory(Path.Combine(Paths.Configs, "GRPP", "audio", "PluginSFX"));
-        AudioClipStorage.LoadClip(Path.Combine(Paths.Configs, "GRPP", "audio", "PluginSFX", ""), "scp");
-        foreach (var file in Directory.GetFiles(Path.Combine(Paths.Configs, "GRPP", "audio", "PluginSFX", "*.ogg")))
+        // AudioClipStorage.LoadClip(Path.Combine(Paths.Configs, "GRPP", "audio", "PluginSFX", ""), "scp");
+        try 
         {
-            if (!file.IsItOgg()) // by the way, this is a fake check. all this checks at the moment is whether the file has the extension `.ogg`.
+            foreach (var file in Directory.GetFiles(Path.Combine(Paths.Configs, "GRPP", "audio", "PluginSFX", "*.ogg")))
             {
-                Log.Warn($"The provided file does not have the correct format.{file}");
-                continue;
+                if (!file.IsItOgg()) // by the way, this is a fake check. all this checks at the moment is whether the file has the extension `.ogg`.
+                {
+                    Log.Warn($"The provided file does not have the correct format.{file}");
+                    continue;
+                }
+                AudioClipStorage.LoadClip(file);  // doin it without the load just grabs the file name without the type !
             }
-            AudioClipStorage.LoadClip(file);  // doin it without the load just grabs the file name without the type !
-        }
+        } 
+        catch (Exception e) {Log.Info($"Exception. GRPP/audio/PluginSFX likely empty.\"{e.Message}\"");}
         // public List<String> listoffiles = whateverthereadallfiles()thingis; 
 
         PlayerHandlers.Shot += Shot;
