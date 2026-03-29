@@ -53,11 +53,11 @@ public sealed class Plugin : Plugin<Config>
         };*/// I did NOT just spend like 5 hours on this just for it to be an upstream issue. FUCKKKKKKKK
     }
 
-    public override string Name => "GRPP"; // General Roleplay Plugin
+    public override string Name => "grpp"; // General Roleplay Plugin
     public override string Author => "Site-27 & 12 Development Team"; // Thank you Stick and VisLuke
-    public override Version Version => new(1, 0, 0); // Reset to v1 due to name change
+    public override Version Version => new(1, 2, 0); // Reset to v1 due to name change
 
-    public static Plugin Singleton;
+    public static Plugin Singleton = null!;
     public static Harmony Harmony;
     private bool _wasEverEnabled;
 
@@ -77,13 +77,15 @@ public sealed class Plugin : Plugin<Config>
         if (Singleton.Config.Debug)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-            new GRPPMenu().Activate();
-            Log.Info("Debug mode is enabled. Enabling SSS, and TLS 2 + 3 for webhook sending.");
+            // new GRPPMenu().Activate();
+            Log.Debug("Debug mode is enabled. Not enabling SSS as it's currently broken, and enabling TLS 2 + 3 for webhook sending.");
         }
-
+        
         ListResourceNames();
         InvokeOnEnabledAttributes();
+
         // new WebServer([$"http://*:{Server.Port}/"]).Start(); // Runs on your automatically port forwarded IP
+        // https://discord\.com/api/webhooks/[0-9]+/$
     }
 
     public override void OnDisabled()
