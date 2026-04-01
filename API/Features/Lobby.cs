@@ -423,13 +423,23 @@ public class EndRoleplay : ICommand
         
         _ = AsyncWebhookRPLobby.AsyncOps("end");
 
-        if (arguments.At(0) == "1" || arguments.At(0) == "enable" || arguments.At(0) == "on" || arguments.At(0) == "ff")
-            Server.FriendlyFire = true;
-        if (arguments.At(0) == "1" || arguments.At(0) == "end" || arguments.At(0) == "on" || arguments.At(0) == "unlock")
-            Round.IsLocked = false;
-        Log.Debug($"We have been up for {Round.UptimeRounds} rounds.");
+        if (arguments.Count == 0)
+            LabApi.Features.Console.Logger.Debug("No arguments passed to rp0.");
+        else
+        {
+            if (arguments.At(0) == "1" || 
+                arguments.At(0) == "enable" || 
+                arguments.At(0) == "on" ||
+                arguments.At(0) == "ff") 
+                Server.FriendlyFire = true;
+            if (arguments.At(1) == "1" || 
+                arguments.At(1) == "end" || 
+                arguments.At(1) == "on" ||
+                arguments.At(1) == "unlock")
+                Round.IsLocked = false;
+        }
 
-        response = "<color=blue>Roleplay</color> <colo=orange>has</color> <color=red>ended</color><color=orange>.</color>";
+        response = "<color=blue>Roleplay</color> <color=orange>has</color> <color=red>ended</color><color=orange>.</color>";
         return true;
     }
 }

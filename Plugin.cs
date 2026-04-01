@@ -18,14 +18,12 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using API.Attributes;
-using API.Features.Menus;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using HarmonyLib;
 using ProjectMER.Events.Arguments;
 using UnityEngine;
 using Log = Exiled.API.Features.Log;
-using Server = Exiled.API.Features.Server;
 
 /// <summary>
 /// The main plugin class for this assembly.
@@ -90,7 +88,7 @@ public sealed class Plugin : Plugin<Config>
 
     public override void OnDisabled()
     {
-        base.OnDisabled();
+        // base.OnDisabled();
         // if (!Config.ConfigurationComplete)
         // {
         //     Log.Error(

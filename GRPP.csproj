@@ -25,6 +25,7 @@
         <PackageReference Include="Lib.Harmony" Version="2.4.2"/>
         <PackageReference Include="ByteSize" Version="2.1.2"/>
         <PackageReference Include="NVorbis" Version="0.10.5"/>
+        <PackageReference Include="EasyTmp" Version="1.0.1.5"/>
 
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net481" Version="1.0.3">
             <PrivateAssets>all</PrivateAssets>
@@ -78,6 +79,7 @@
             <InputAssemblies Include="$(TargetDir)System.ValueTuple.dll"/>
             <InputAssemblies Include="$(TargetDir)0Harmony.dll"/>
             <InputAssemblies Include="deps/AudioPlayerApi.dll"/>
+            <InputAssemblies Include="$(TargetDir)EasyTmp.dll"/>
             <!--<InputAssemblies Include="$(TargetDir).dll"/>-->
             <LibraryPath Include="$(NuGetPackageRoot)exmod.exiled/9.13.1/lib/net48/"/>
             <LibraryPath Include="$(NuGetPackageRoot)northwood.labapi/1.1.5/lib/net48/"/>
