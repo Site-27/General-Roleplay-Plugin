@@ -175,8 +175,8 @@ public abstract class Name
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
 public class NameEnable : ICommand
 {
-    public string Command => "NameEnable";
-    public string[] Aliases => ["NameOn", "OnName", "EnableName"];
+    public string Command => "NameOn";
+    public string[] Aliases => ["EnableName", "OnName", "NameEnable", "YesName"];
     public string Description => "Enables the Name Client Command";
 
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, [UnscopedRef] out string response)
@@ -198,8 +198,8 @@ public class NameEnable : ICommand
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
 public class NameDisable : ICommand
 {
-    public string Command => "NameDisable";
-    public string[] Aliases => ["NameOff", "OffName", "DisableName", "NoName"];
+    public string Command => "NameOff";
+    public string[] Aliases => ["DisableName", "OffName", "NameDisable", "NoName"];
     public string Description => "Disables the Name Client Command";
 
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, [UnscopedRef] out string response)
@@ -223,9 +223,9 @@ public class NameDisable : ICommand
 public class NameClient : ICommand
 {
     public string Command => "Name";
-    public string[] Aliases => ["name", "customname"];
-    public string Description => "Gives you a custom name for RP purposes : Name (New Name)";
-    
+    public string[] Aliases => ["nick", "customname"];
+    public string Description => "Sets a nickname to enhance RP.";
+
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
         if (!Name.IsEnabled)
@@ -241,10 +241,15 @@ public class NameClient : ICommand
             response = "Name reset successfully!";
             return true;
         }
-        foreach (var word in arguments)
-        foreach (var _ in Plugin.Singleton.Config.Blocklist.Where(target => word.Equals(target, StringComparison.OrdinalIgnoreCase))) player.Ban(1577000000, "Automated ban. Appeal on the discord if you believe this was false.");
 
-        player.DisplayNickname = string.Join(" ", arguments);
+        foreach (var word in arguments)
+        foreach (var _ in Plugin.Singleton.Config.Blocklist.Where(target => word.Equals(target, StringComparison.OrdinalIgnoreCase)))
+            player.Ban(1577000000, "Automated ban. Appeal on the discord if you believe this was false.");
+
+        var name = string.Join(" ", arguments);
+        player.DisplayNickname = name.Length < (Plugin.Singleton.Config.NameMaxLength ?? Defaults.NameMaxLength) ? 
+            name : 
+            name.CutStringToValue(Plugin.Singleton.Config.NameMaxLength ?? Defaults.NameMaxLength);
 
         foreach (var item in player.Items)
             if (CustomItemsManager.Get<KeycardHandler>().Container.HasItem(item.Base, out var idCard))

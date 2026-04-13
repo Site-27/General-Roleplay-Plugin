@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CommandSystem;
+using EasyTmp;
 using GRPP.API.Attributes;
 using GRPP.API.Features.CustomItems;
 using GRPP.API.Features.Items;
@@ -92,16 +93,16 @@ public class InfoClient : ICommand
         foreach (var word in arguments)
         foreach (var _ in Plugin.Singleton.Config.Blocklist.Where(target => word.Equals(target, StringComparison.OrdinalIgnoreCase))) player.Ban(1577000000, "Automated ban. Appeal on the discord if you believe this was false.");
 
-        player.CustomInfo = string.Join(" ", arguments);
-
-        // foreach (var item in player.Items)
-        //     if (CustomItemsManager.Get<KeycardHandler>().Container.HasItem(item.Base, out var idCard))
-        //     {
-        //         // idCard.Name = player.DisplayNickname;
-        //         break;
-        //     }
-
-        response = "Customi changed successfully!";
+        var customInfo = string.Join(" ", arguments);
+        player.CustomInfo = customInfo.Length < (Plugin.Singleton.Config.InfoMaxLength ?? Defaults.InfoMaxLength) ? 
+            customInfo : 
+            customInfo.CutStringToValue(Plugin.Singleton.Config.InfoMaxLength ?? Defaults.InfoMaxLength);
+        
+        response = EasyArgs.Build().Blue("Custom info")
+            .Space().Orange("has been")
+            .Space().Green("successfully")
+            .Space().Orange("set!")
+            .Done();
         return true;
     }
 }

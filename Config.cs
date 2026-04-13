@@ -1,4 +1,6 @@
-﻿namespace GRPP;
+﻿// TODO: Refactor this to sort by priority. Do this alongside the documentation updates.
+
+namespace GRPP;
 
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,12 @@ public class Config : IConfig
 
     [Description("true = Plugin Enabled, false = Plugin Disabled.")]
     public bool IsEnabled { get; set; } = true;
+
+    [Description("Which maps to load upon using lobby! Can be empty or only have one.")]
+    public List<string>? MapsToLoadOnLobby { get; set; } = ["epicgamermap", "epicgamermap2"];
+
+    [Description("Whether to unload the maps on lobby usage! Use this if you want to have different maps for normal rounds and for roleplays! :D")]
+    public bool? LobbyShouldUnloadMaps = false;
 
     [Description("Should debug logs be enabled? (This is required for webhook implementation, as it enables TLS 2 + 3.)")]
     public bool Debug { get; set; } = false;
@@ -28,6 +36,8 @@ public class Config : IConfig
     public float PlayerSpawnLocationX { get; set; } = 0f;
     public float PlayerSpawnLocationY { get; set; } = 0f;
     public float PlayerSpawnLocationZ { get; set; } = 0f;
+    [Description("Maximum length for names, when changed using `.name`.")] public int? NameMaxLength = 25;
+    [Description("Maximum length for customis, when changed using `.info`.")] public int? InfoMaxLength = 50;
 
     [Description("List of Departments, i.e. Security, Research")]
     public List<string> Departments { get; set; } = [
@@ -40,9 +50,12 @@ public class Config : IConfig
 
     [Description("Whether the WeightSystem should be on or off.")]
     public bool WeightSystem { get; set; } = false;
-    
-    // [Description("Experiemntal features toggle. (UNIMPLEMENTED)")]
-    // public bool Experimental { get; set; } = false;
+
+    [Description("The maximum height that is permitted by the `.height` client command.")] public float MaxHeight { get; set; } = 1.1f;
+    [Description("The minimum height that is permitted by the `.height` client command.")] public float MinHeight { get; set; } = 0.9f;
+
+    [Description("Experiemntal features toggle. (Unimplemented)")]
+    public bool Experimental { get; set; } = false;
 
     // [Description("Discord Webhook link for Department Logs")]
     // public string URL { get; set; } = "";
@@ -94,5 +107,9 @@ public class Config : IConfig
     [Description("Name of A7 OGG file. Please include the file extension, or since only .ogg 48khz is allowed, `.ogg` will do.")] public string A7Sfx { get; set; } = "a7.ogg";
     [Description("Name of AK OGG file. Please include the file extension, or since only .ogg 48khz is allowed, `.ogg` will do.")] public string AkSfx { get; set; } = "ak.ogg";
     [Description("Name of ParticleDisruptor OGG file. Please include the file extension, or since only .ogg 48khz is allowed, `.ogg` will do.")] public string ParticleSfx { get; set; } = "particle.ogg";
+
+    // [Description("List of SteamID64s that are permitted to bypass restrictive mode.")] public List<String>? BypassID64 { get; set; } = [];
+    // [Description("List of roles that are permitted to bypass restrictive modes. This is not a required field, and should only be used if permissions are not being set. If you need assistance, join our discord.")] public List<String>? BypassRoles { get; set; } = [];
+    [Description("Whether players should be permitted to use the audio player, using `/au`. This is HIGHLY unrecommended.")] public bool ClientAu { get; set; } = false;
     
 }
