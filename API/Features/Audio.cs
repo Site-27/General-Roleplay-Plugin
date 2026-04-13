@@ -19,9 +19,12 @@ public class Audio : ICommand
 
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, [UnscopedRef] out string response)
     {
+        if (!sender.CheckRemoteAdmin(out response) && !Plugin.Singleton.Config.ClientAu)
+            return false;
+        
         var player = ExPlayer.Get(sender);
         response = "<color=red>No Permission.";
-        if (!sender.CheckPermission("GRPP.au"))
+        if (!sender.CheckPermission("grpp.au"))
             return false;
 
         response = "<color=red>Invalid Usage\n" +
