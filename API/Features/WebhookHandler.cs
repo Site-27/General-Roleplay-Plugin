@@ -1,8 +1,6 @@
 namespace GRPP.API.Features;
 
 using System;
-using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,15 +24,17 @@ public class WebhookHandler
                 {
                     new
                     {
-                        title = title,
-                        description = description,
+                        title,
+                        description,
                         color = int.Parse(color),
-                        fields = new[]
+                        fields = new[] 
                         {
-                            new { name = arg3, value = arg4, inline = inline},
+                            new { name = arg3, value = arg4, inline},
                         },
-                        timestamp = DateTime.UtcNow.ToString("O")
-                    }
+                        timestamp = DateTime.UtcNow.ToString("O"),
+                        thread_name = "test!"
+                    } 
+                    // we can include a "thread_name" if we'd like to, for forums orr extra info 
                 },
             };
             await PostWebhook(webhookUrl, embed);
@@ -48,12 +48,12 @@ public class WebhookHandler
                 {
                     new
                     {
-                        title = title,
-                        description = description,
+                        title,
+                        description,
                         color = int.Parse(color),
                         fields = new[]
                         {
-                            new { name = $"{arg3}", value = $"{arg3}", inline = inline},
+                            new { name = $"{arg3}", value = $"{arg3}", inline},
                         },
                     }
                 },
