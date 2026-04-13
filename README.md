@@ -7,6 +7,7 @@
 ### Installation
 - Install ProjectMER into your `LabAPI/plugins/[port]` (or `global`). You can find the latest release [here](https://github.com/Michal78900/ProjectMER/releases/latest). [^1]
 - Install EXILED. There is a VERY quick installation guide [here](https://exmod-team.github.io/EXILED/articles/installation/manual.html)! [^2]
+- Download GRPP.dll [here](https://github.com/z5tm/General-Roleplay-Plugin/releases/latest), then place it into your `EXILED/Plugins/` folder. [^3]
 ### Permissions Overview
 | Permission               | Related Commands                                              | Description                                                                                                                                                                              |
 |--------------------------|---------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -18,9 +19,9 @@
 
 [//]: # (| grpp.fixme               |                                                               |                                                                                                                                                                                          |)
 
-## Quick-Build guide: 
+## Quick-Build guide:
 ---
-Requirements: 
+Requirements:
 
 ###### not sure if we can distribute these so i'll just link to them
 
@@ -49,3 +50,5 @@ It is HEAVILY recommended to use a set seed, but weirdly not a requirement.
 [^1]: The installation guide for ProjectMER is [here](https://github.com/Michal78900/ProjectMER/wiki/Installation)
 
 [^2]: If you need assistance with installing EXILED, join EXILED's discord [on their repo](https://github.com/ExMod-Team/EXILED/)!
+
+[^3]: If you need assistance installing our plugin, join our [discord](https://discord.gg/Hw5UTGAJcn)!
