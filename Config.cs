@@ -45,6 +45,9 @@ public class Config : IConfig
     "SetMeUpNow"
     ]; // need to make this shit more user-friendly. I shall soon.
 
+    [Description("Amount of time in seconds that the broadcast sent by the .rp command lasts.")]
+    public ushort RPBroadcastDuration { get; set; } = 15; 
+
     [Description("Scom Word blocklist")]
     public List<string> Blocklist { get; set; } = ["horridword", "badwordbadd", "badword67"];
 
