@@ -36,8 +36,8 @@ public class Config : IConfig
     public float PlayerSpawnLocationX { get; set; } = 0f;
     public float PlayerSpawnLocationY { get; set; } = 0f;
     public float PlayerSpawnLocationZ { get; set; } = 0f;
-    [Description("Maximum length for names, when changed using `.name`.")] public int? NameMaxLength = 25;
-    [Description("Maximum length for customis, when changed using `.info`.")] public int? InfoMaxLength = 50;
+    [Description("Maximum length for names, when changed using `.name`.")] public int? NameMaxLength = 75;
+    [Description("Maximum length for customis, when changed using `.info`.")] public int? InfoMaxLength = 150;
 
     [Description("List of Departments, i.e. Security, Research")]
     public List<string> Departments { get; set; } = [
