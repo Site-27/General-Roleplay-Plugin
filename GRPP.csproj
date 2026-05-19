@@ -19,13 +19,13 @@
     <ItemGroup>
         <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.44.2" PrivateAssets="all" />
         <PackageReference Include="ExMod.Exiled" Version="9.13.3" />
-        <PackageReference Include="Mono.HttpUtility" Version="1.0.0.1" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="BigHelp.Http" Version="0.3.2" />
-        <PackageReference Include="Lib.Harmony" Version="2.4.2" />
-        <PackageReference Include="ByteSize" Version="2.1.2" />
-        <PackageReference Include="NVorbis" Version="0.10.5" />
-        <PackageReference Include="EasyTmp" Version="1.0.1.5" />
+        <PackageReference Include="Mono.HttpUtility" Version="1.0.0.1"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="BigHelp.Http" Version="0.3.2"/>
+        <PackageReference Include="Lib.Harmony" Version="2.4.2"/>
+        <PackageReference Include="ByteSize" Version="2.1.2"/>
+        <PackageReference Include="NVorbis" Version="0.10.5"/>
+        <PackageReference Include="EasyTmp" Version="1.0.1.5"/>
 
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net481" Version="1.0.3">
             <PrivateAssets>all</PrivateAssets>
@@ -38,22 +38,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="AudioPlayer">
-          <HintPath>..\..\..\References\AudioPlayer.dll</HintPath>
-        </Reference>
-        <Reference Include="AudioPlayerApi">
-          <HintPath>..\..\..\References\AudioPlayerApi.dll</HintPath>
-        </Reference>
+        <Reference Include="ProjectMer" HintPath="lib/ProjectMER.dll" Private="False" />
+        <Reference Include="AudioPlayer" HintPath="lib/AudioPlayer.dll" Private="False" />
         <Reference Include="Mirror" HintPath="$(SL_REFERENCES)/Mirror-Publicized.dll" Private="False" />
         <Reference Include="Assembly-CSharp" HintPath="$(SL_REFERENCES)/Assembly-CSharp-Publicized.dll" Private="False" />
         <Reference Include="Assembly-CSharp-firstpass" HintPath="$(SL_REFERENCES)/Assembly-CSharp-firstpass.dll" Private="False" />
         <Reference Include="Pooling" HintPath="$(SL_REFERENCES)/Pooling.dll" Private="False" />
-        <Reference Include="ProjectMER">
-          <HintPath>..\..\..\References\ProjectMER.dll</HintPath>
-        </Reference>
-		<Reference Include="AudioPlayerApi">
-			<HintPath>..\..\..\References\AudioPlayerApi.dll</HintPath>
-		</Reference>
         <Reference Include="Unity.TextMeshPro" HintPath="$(SL_REFERENCES)/Unity.TextMeshPro.dll" Private="False" />
         <Reference Include="UnityEngine" HintPath="$(SL_REFERENCES)/UnityEngine.dll" Private="False" />
         <Reference Include="UnityEngine.AIModule" HintPath="$(SL_REFERENCES)/UnityEngine.AIModule.dll" Private="False" />
@@ -75,29 +65,34 @@
     <ItemGroup>
         <EditorConfigFiles Remove=".editorconfig" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="API\Core\Webhooks\" />
-    </ItemGroup>
 
     <Target Name="ILRepacker" AfterTargets="Build"> <!--Condition="'$(Configuration)' == 'Release'-->
-		<ItemGroup>
-			<InputAssemblies Include="$(TargetDir)$(AssemblyName).dll" />
-			<!---->
-
-			<InputAssemblies Include="$(TargetDir)ByteSize.dll" />
-			<!--<InputAssemblies Include="$(TargetDir)System.ComponentModel.DataAnnotations.dll"/>-->
-			<InputAssemblies Include="$(TargetDir)Newtonsoft.Json.dll" />
-			<!--            <InputAssemblies Include="$(TargetDir)Mono.HttpUtility.dll"/>-->
-			<InputAssemblies Include="$(TargetDir)NVorbis.dll" />
-			<InputAssemblies Include="$(TargetDir)System.ValueTuple.dll" />
-			<InputAssemblies Include="$(TargetDir)0Harmony.dll" />
-			<InputAssemblies Include="deps/AudioPlayerApi.dll" />
-			<InputAssemblies Include="$(TargetDir)EasyTmp.dll" />
-			<!--<InputAssemblies Include="$(TargetDir).dll"/>-->
-			<LibraryPath Include="$(NuGetPackageRoot)exmod.exiled/9.13.3/lib/net48/" />
-			<LibraryPath Include="$(NuGetPackageRoot)northwood.labapi/1.1.6.1/lib/net48/" />
-			<LibraryPath Include="$(SL_REFERENCES)" />
-		</ItemGroup>
+        <ItemGroup>
+            <InputAssemblies Include="$(TargetDir)$(AssemblyName).dll"/> <!---->
+            
+            <InputAssemblies Include="$(TargetDir)ByteSize.dll"/>
+            <!--<InputAssemblies Include="$(TargetDir)System.ComponentModel.DataAnnotations.dll"/>-->
+            <InputAssemblies Include="$(TargetDir)Newtonsoft.Json.dll"/>
+<!--            <InputAssemblies Include="$(TargetDir)Mono.HttpUtility.dll"/>-->
+            <InputAssemblies Include="$(TargetDir)NVorbis.dll"/>
+            <InputAssemblies Include="$(TargetDir)System.ValueTuple.dll"/>
+            <InputAssemblies Include="$(TargetDir)0Harmony.dll"/>
+            <InputAssemblies Include="deps/AudioPlayerApi.dll"/>
+            <InputAssemblies Include="$(TargetDir)EasyTmp.dll"/>
+            <!--<InputAssemblies Include="$(TargetDir).dll"/>-->
+            <LibraryPath Include="$(NuGetPackageRoot)exmod.exiled/9.13.3/lib/net48/"/>
+            <LibraryPath Include="$(NuGetPackageRoot)northwood.labapi/1.1.6.1/lib/net48/"/>
+            <LibraryPath Include="$(SL_REFERENCES)"/>
+        </ItemGroup>
+        <ILRepack
+            Parallel="true"
+            Internalize="true"
+            InputAssemblies="@(InputAssemblies)"
+            TargetKind="Dll"
+            OutputFile="$(TargetDir)$(AssemblyName).dll"
+            LibraryPath="@(LibraryPath)"
+            DebugInfo = "true"
+        />
     </Target>
 <!--    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">-->
 <!--        <Variable1>DebugValue</Variable1>-->

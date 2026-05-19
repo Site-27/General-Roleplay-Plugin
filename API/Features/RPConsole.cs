@@ -8,7 +8,7 @@ using GRPP;
 public class RPConsole : ICommand
 {
 	public string Command { get; } = "rp";
-	public string[] Aliases { get; } = { "rpconsole" };
+	public string[] Aliases { get; } = new string[] { "rpconsole" };
 	public string Description { get; } = "Allows you to send a roleplay broadcast to all players in the room with you.";
 
     public void RoomBroadcast(Player player, ushort duration, string message)

@@ -36,8 +36,8 @@ public class Config : IConfig
     public float PlayerSpawnLocationX { get; set; } = 0f;
     public float PlayerSpawnLocationY { get; set; } = 0f;
     public float PlayerSpawnLocationZ { get; set; } = 0f;
-    [Description("Maximum length for names, when changed using `.name`.")] public int? NameMaxLength = 25;
-    [Description("Maximum length for customis, when changed using `.info`.")] public int? InfoMaxLength = 50;
+    [Description("Maximum length for names, when changed using `.name`.")] public int? NameMaxLength = 75;
+    [Description("Maximum length for customis, when changed using `.info`.")] public int? InfoMaxLength = 150;
 
     [Description("List of Departments, i.e. Security, Research")]
     public List<string> Departments { get; set; } = [
@@ -45,13 +45,14 @@ public class Config : IConfig
     "SetMeUpNow"
     ]; // need to make this shit more user-friendly. I shall soon.
 
+    [Description("Amount of time in seconds that the broadcast sent by the .rp command lasts.")]
+    public ushort RPBroadcastDuration { get; set; } = 15; 
+
     [Description("Scom Word blocklist")]
     public List<string> Blocklist { get; set; } = ["horridword", "badwordbadd", "badword67"];
 
     [Description("Whether the WeightSystem should be on or off.")]
     public bool WeightSystem { get; set; } = false;
-
-    [Description("The length of time the broadcast sent by the `.rp` client command lasts.")] public ushort RPBroadcastDuration { get; set; } = 15;
 
     [Description("The maximum height that is permitted by the `.height` client command.")] public float? MaxHeight { get; set; } = 1.1f;
     [Description("The minimum height that is permitted by the `.height` client command.")] public float? MinHeight { get; set; } = 0.9f;

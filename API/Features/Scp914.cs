@@ -1,4 +1,4 @@
-﻿namespace Site12.API.Features;
+﻿namespace GRPP.API.Features;
 
 using System;
 using CommandSystem;
@@ -8,7 +8,6 @@ using Attributes;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Extensions;
-using MapGeneration;
 
 public static class Scp914
 {

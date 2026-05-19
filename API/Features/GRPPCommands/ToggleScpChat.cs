@@ -1,13 +1,12 @@
-﻿namespace Site12.API.Features.Other;
+﻿namespace GRPP.API.Features.GRPPCommands;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Attributes;
 using CommandSystem;
-using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
-using Extensions;
+using GRPP.API.Attributes;
+using GRPP.Extensions;
 using VoiceChat;
 using VoiceChat.Networking;
 
@@ -92,7 +91,7 @@ public class ToggleScpChat : ICommand
         {
             foreach (ExPlayer player in ExPlayer.List.Where(p => p != ev.Player && (p.IsScp || ToggledPlayers.Contains(p))))
             {
-                msgCopy.Channel = VoiceChatChannel.RoundSummary; // ScpChat doesn't work for some reason
+                msgCopy.Channel = VoiceChatChannel.ScpChat; // ScpChat doesn't work for some reason // attempting scpchat again
                 player.ReferenceHub.connectionToClient.Send(msgCopy);
             }
 
@@ -101,13 +100,11 @@ public class ToggleScpChat : ICommand
         }
 
         if (msgCopy.Channel == VoiceChatChannel.ScpChat)
-        {
             foreach (ExPlayer player in ToggledPlayers)
             {
                 msgCopy.Channel = VoiceChatChannel.Intercom;
                 player.ReferenceHub.connectionToClient.Send(msgCopy);
             }
-        }
     }
 
     private static void WaitingForPlayers()

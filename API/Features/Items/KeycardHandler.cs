@@ -1,8 +1,9 @@
-﻿namespace Site12.API.Features.Items;
+﻿namespace GRPP.API.Features.Items;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using CommandSystem;
 using Core;
 using CustomItems;
@@ -13,6 +14,7 @@ using Exiled.Events.EventArgs.Player;
 using Extensions;
 using InventorySystem;
 using InventorySystem.Items;
+using Lobby;
 using NorthwoodLib.Pools;
 
 public sealed class KeycardHandler : CustomItemHandler
@@ -78,7 +80,7 @@ public sealed class KeycardHandler : CustomItemHandler
     {
         if (ev.Item == null)
             return;
-        if (!ev.Item.IsKeycard || !Lobby.IsRoleplay || Container.HasItem(ev.Item.Serial) || CustomItemsManager.Get<CustomHandler>().Container.HasItem(ev.Item.Serial)) return;
+        if (!ev.Item.IsKeycard || !Main.IsRoleplay || Container.HasItem(ev.Item.Serial) || CustomItemsManager.Get<CustomHandler>().Container.HasItem(ev.Item.Serial)) return;
         var role = "None";
         var currentLevel = 0;
         List<Levels> levels = [];
@@ -97,7 +99,7 @@ public sealed class KeycardHandler : CustomItemHandler
             case ItemType.KeycardResearchCoordinator:
                 role = "Supervisor";
                 currentLevel = 3;
-                levels = [Levels.Containment, Levels.Security];
+                levels = [Levels.Containment, Levels.Engineering];
                 break;
             case ItemType.KeycardZoneManager:
                 role = "Zone Manager";
@@ -115,6 +117,7 @@ public sealed class KeycardHandler : CustomItemHandler
                 break;
             case ItemType.KeycardContainmentEngineer:
                 role = "Engineer";
+                currentLevel = 3;
                 levels = [Levels.Containment, Levels.Engineering];
                 break;
             case ItemType.KeycardMTFOperative:
@@ -143,7 +146,7 @@ public sealed class KeycardHandler : CustomItemHandler
                 break;
         }
 
-        Container.RegisterItem(ev.Item.Base, new Keycard($"{Other.Name.FirstNames[new Random().Next(Other.Name.FirstNames.Count)]} {Other.Name.LastNames[new Random().Next(Other.Name.LastNames.Count)]}", role, new Random().Next(10, 99) + "ax1", currentLevel, levels));
+        Container.RegisterItem(ev.Item.Base, new Keycard($"{GRPPCommands.Name.FirstNames[new Random().Next(GRPPCommands.Name.FirstNames.Count)]} {GRPPCommands.Name.LastNames[new Random().Next(GRPPCommands.Name.LastNames.Count)]}", role, new Random().Next(10, 99) + "ax1", currentLevel, levels));
     }
 
     private void CurrentItemChanged(ReferenceHub hub, ItemIdentifier oldItem, ItemIdentifier newItem)
@@ -169,7 +172,7 @@ public sealed class KeycardHandler : CustomItemHandler
             sb.AppendLine($"┃<b>CLEARANCE CODES</b><pos=467><b>Level</b><pos=612>┃");
             sb.AppendLine($"┃{(card.CurrentSubLevels.Count > 0 ? string.Join(", ", card.CurrentSubLevels) : "No Clearance Codes...")}<pos=467>{card.CurrentLevel}<pos=612>┃");
             sb.AppendLine($"┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫");
-            sb.AppendLine($"┃Site-{Lobby.Site}<pos=350>Iss: {DateTime.Today.AddYears(30):d}   Exp: {DateTime.Today.AddYears(32):d}<pos=612>┃");
+            sb.AppendLine($"┃Site-{Main.Site}<pos=350>Iss: {DateTime.Today.AddYears(30):d}   Exp: {DateTime.Today.AddYears(32):d}<pos=612>┃");
             sb.AppendLine($"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
             hintToShow = StringBuilderPool.Shared.ToStringReturn(sb);
@@ -180,7 +183,7 @@ public sealed class KeycardHandler : CustomItemHandler
 
     private void InteractingLocker(InteractingLockerEventArgs ev)
     {
-        if (!Lobby.IsRoleplay)
+        if (!Main.IsRoleplay)
             return;
 
         if (ev.Player.IsBypassModeEnabled)
@@ -230,7 +233,7 @@ public sealed class KeycardHandler : CustomItemHandler
 
     private void InteractingDoor(InteractingDoorEventArgs ev)
     {
-        if (!Lobby.IsRoleplay)
+        if (!Main.IsRoleplay)
             return;
 
         if (ev.Player.IsBypassModeEnabled)
