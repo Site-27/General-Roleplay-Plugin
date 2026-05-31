@@ -2,7 +2,6 @@
 using Exiled.API.Features;
 using GRPP;
 using GRPP.API.Core.Webhooks;
-using InventorySystem.Items;
 using System;
 using System.Linq;
 

@@ -121,4 +121,5 @@ public class Config : IConfig
 
     [Description("Client-sided print command webhook logging URL.")] public string PrintCommandWebhookUrl { get; set; } = string.Empty;
     [Description("Client-sided roleplay command webhook logging URL.")] public string RPCommandWebhookUrl { get; set; } = string.Empty;
+    [Description("Client-sided modmail command webhook logging URL.")] public string ModmailCommandWebhookUrl { get; set; } = string.Empty;
 }
